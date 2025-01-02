@@ -40,7 +40,47 @@ public class EmployeesController : ControllerBase
     public IActionResult GetEmployee(Guid id)
     {
         var employee = _appDbContext.Employees.Find(id);
+
+        if (employee is null)
+        {
+            return NotFound();
+        }
         
+        return Ok(employee);
+    }
+
+    [HttpPut("{id:guid}")]
+    public IActionResult UpdateEmployee(Guid id, [FromBody] UpdateEmployeeRequest updateEmployeeRequest)
+    {
+        var employee = _appDbContext.Employees.Find(id);
+
+        if (employee is null)
+        {
+            return NotFound();
+        }
+
+        employee.Name = updateEmployeeRequest.Name;
+        employee.Email = updateEmployeeRequest.Email;
+        employee.Phone = updateEmployeeRequest.Phone;
+        employee.Salary = updateEmployeeRequest.Salary;
+        
+        _appDbContext.SaveChanges();
+        
+        return Ok(employee);
+    }
+
+    [HttpDelete("{id:guid}")]
+    public IActionResult DeleteEmployee(Guid id)
+    {
+        var employee = _appDbContext.Employees.Find(id);
+
+        if (employee is null)
+        {
+            return NotFound();
+        }
+        
+        _appDbContext.Employees.Remove(employee);
+        _appDbContext.SaveChanges();
         return Ok(employee);
     }
 }

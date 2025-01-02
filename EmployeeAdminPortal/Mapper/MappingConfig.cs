@@ -9,5 +9,6 @@ public static class MappingConfig
     public static void RegisterMappings()
     {
         TypeAdapterConfig<CreateEmployeeRequest, Employee>.NewConfig();
+        TypeAdapterConfig<UpdateEmployeeRequest, Employee>.NewConfig();
     }
 }
