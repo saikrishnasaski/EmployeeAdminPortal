@@ -1,4 +1,5 @@
 using EmployeeAdminPortal.Data;
+using EmployeeAdminPortal.Mapper;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,6 @@ if (!app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
-
+MappingConfig.RegisterMappings();
 app.MapControllers();
 app.Run();
